@@ -1,0 +1,38 @@
+spinsys {
+    nuclei 133Cs
+    channels 133Cs
+    quadrupole 1 1 1000 0.6 0 0 0
+} 
+
+par {
+    start_operator   I1z
+    detect_operator  I1c
+    spin_rate        10000
+    sw               4000000
+    crystal_file     rep100
+    np               200
+    proton_frequency 600e6
+    gamma_angles 10
+    variable rf      50000
+    variable rotor_period   1/spin_rate
+    variable T1 0.25
+}
+
+proc pulseq {} {
+    global par
+    set tdwell [expr 1.0e6/$par(sw)]
+    
+    for {set i 0} {$i < $par(np)} {incr i} {   
+      pulse $par(T1) $par(rf) y
+      acq
+    }
+}
+
+proc main {} {
+  global par
+  for {set j 1} {$j<5} {incr j} {
+    set par(quad) [expr $j*100000]
+    set f [fsimpson {{quadrupole_1_aniso $par(quad)}}]
+    fsave $f $par(name).$j.fid -xreim
+  }
+}
