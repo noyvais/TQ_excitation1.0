@@ -1,0 +1,54 @@
+spinsys {
+    nuclei 133Cs
+    channels 133Cs
+    quadrupole 1 1 30000 0.6 0 0 0
+} 
+
+par {
+    start_operator   I1z
+    detect_operator  I1p
+    spin_rate        10000
+    sw               10000
+    crystal_file     rep100
+    np               2
+    proton_frequency 600e6
+    variable rf      40000
+    variable rotor_period   1/spin_rate
+    gamma_angles 8
+ variable tau 0.0
+variable T1 1.0
+ variable T2 1.0
+ variable T3 1.0
+variable T4 1.0
+ variable tau2 10
+    variable ev 100.0
+}
+
+proc pulseq {} {
+    global par
+    matrix set detect coherence {-3 3}
+    set rf  $par(rf)
+    set delay $par(tau)
+    set T1  $par(T1)
+    set T2  $par(T2)
+    set ev $par(ev)
+    set T3  $par(T3)
+    set T4  $par(T4)
+    set tau2 $par(tau2)
+    
+    pulse $T1 $par(rf) y
+    pulse $T1 $par(rf) x
+    pulse $T1 $par(rf) y
+    delay $delay
+    pulse $T2 $par(rf) y
+   acq
+}
+
+proc main {} {
+    global par
+    set f [fsimpson]
+    fzerofill $f 8192
+    faddlb $f 100 0
+    fsave $f $par(T1)$par(T2).fid -xreim
+}
+
