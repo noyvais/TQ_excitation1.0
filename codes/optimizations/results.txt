@@ -1,8 +1,0 @@
-RF=50KHz
-Optimized point: [ 6.12742339  6.4782066   5.          2.         50.96726652 33.36056575
- 28.3871554 ]
-Function value at optimized point: 7.39176
-
-[ 6.13527965  6.47769537  2.          2.         51.01238397 33.3279417
- 28.48121798]
-Function value at optimized point: 7.39168

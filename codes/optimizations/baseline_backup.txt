@@ -1,1 +1,0 @@
-variable T1 , variable T2 , variable tau 

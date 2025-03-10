@@ -1,1 +1,0 @@
-variable T1 , variable T2 , variable T3 , variable T4 , variable tau1 , variable tau2 , variable tau3 , variable rf 
