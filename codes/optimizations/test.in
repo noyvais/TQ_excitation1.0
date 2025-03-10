@@ -1,0 +1,31 @@
+spinsys {
+    nuclei 1H
+    channels 1H
+} 
+
+par {
+    start_operator   I1z
+    detect_operator  I1x
+    spin_rate        10000
+    sw               10000
+    crystal_file     rep100
+    np               1
+    proton_frequency 400e6
+    gamma_angles 10
+    variable rf      50000
+variable T1 12.009699999999999
+ variable T2 3.0096999999999974
+ variable tau59.0
+variable T1 11.0
+ variable T2 4.0
+    global par
+    pulse $par(T1) $par(rf) y
+    pulse $par(T2) $par(rf) y
+    acq
+}
+
+proc main {} {
+    global par
+    set f [fsimpson]
+    fsave $f $par(name).fid -xreim
+}
